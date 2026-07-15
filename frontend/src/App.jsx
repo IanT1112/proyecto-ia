@@ -56,12 +56,14 @@ function App() {
   };
 
   const handlePredict = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setResult(null);
+  e.preventDefault();
+  setLoading(true);
+  setResult(null);
 
-    try {
-      const response = await fetch("http://127.0.0.1:8000/predict-investment", {
+  try {
+    const response = await fetch(
+      "https://startups-ia-backend.onrender.com/predict-investment",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +104,13 @@ function App() {
           exit_type: formData.exit_type,
           tags: formData.tags,
         }),
-      });
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Error al realizar la predicción");
+    }
 
       const data = await response.json();
       setResult(data);
