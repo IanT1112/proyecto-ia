@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Landing from "./Landing";
 import "./App.css";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
 
   const formatMoney = (value) =>
     new Intl.NumberFormat("es-PE", {
@@ -198,6 +200,79 @@ function App() {
       .join(" ");
   };
 
+
+  const getExecutiveMessage = () => {
+  if (!result) return "";
+
+  if (result.recommendation.includes("No invertir")) {
+    return "La startup puede tener potencial, pero las condiciones actuales de inversión no son convenientes financieramente.";
+  }
+
+  if (result.recommendation.includes("Evaluar")) {
+    return "La startup muestra señales interesantes, pero aún necesita mayor análisis antes de tomar una decisión de inversión.";
+  }
+
+  return "La startup presenta una combinación favorable entre potencial de éxito, riesgo y rentabilidad esperada.";
+};
+
+const getFinancialExplanation = () => {
+  if (!result) return "";
+
+  if (result.roi_percentage > 1000) {
+    return "El ROI proyectado es muy alto porque el monto invertido es bajo en comparación con el porcentaje de participación solicitado.";
+  }
+
+  if (result.roi_percentage < 0) {
+    return "El ROI es negativo porque el retorno esperado no alcanza a cubrir el monto inicial invertido.";
+  }
+
+  return "El retorno esperado supera la inversión inicial, generando una ganancia neta positiva.";
+};
+
+const getWarnings = () => {
+  const warnings = [];
+
+  if (Number(formData.investment_amount) < 10000 && Number(formData.equity_percentage) > 20) {
+    warnings.push("La inversión es muy baja para una participación accionaria alta. Puede ser un escenario poco realista.");
+  }
+
+  if (Number(formData.employee_count) < 5) {
+    warnings.push("La startup tiene muy pocos empleados, lo que puede indicar una etapa temprana o capacidad operativa limitada.");
+  }
+
+  if (Number(formData.estimated_revenue_usd) < 50000) {
+    warnings.push("Los ingresos anuales son bajos, por lo que conviene validar tracción comercial.");
+  }
+
+  if (formData.local_or_global === "LOCAL") {
+    warnings.push("El alcance local puede limitar el crecimiento frente a startups con expansión global.");
+  }
+
+  return warnings;
+};
+
+const getStrengths = () => {
+  const strengths = [];
+
+  if (result?.success_probability >= 65) {
+    strengths.push("Buena probabilidad de éxito según el modelo predictivo.");
+  }
+
+  if (formData.machine_learning_based_business === "YES") {
+    strengths.push("La startup está vinculada a Machine Learning o inteligencia artificial.");
+  }
+
+  if (formData.worked_in_top_companies === "YES") {
+    strengths.push("El equipo tiene experiencia en empresas destacadas.");
+  }
+
+  if (Number(formData.equity_percentage) >= 10) {
+    strengths.push("La participación ofrecida puede ser atractiva para el inversionista.");
+  }
+
+  return strengths;
+};
+
   const moneyLabels = () => {
     if (!projectionData.length) return [];
 
@@ -206,11 +281,21 @@ function App() {
     return [max, (max + min) / 2, min];
   };
 
+    if (showLanding) {
+  return <Landing onStart={() => setShowLanding(false)} />;
+}
+
   return (
     <main className="page">
+      <button
+      className="back-home"
+      onClick={() => setShowLanding(true)}
+    >
+      ← Inicio
+    </button>
       <section className="hero">
         <span className="badge">IA para Venture Capital</span>
-        <h1>Evaluador Inteligente de Inversión en Startups</h1>
+        <h1>IA STARTUP</h1>
         <p>
           Analiza riesgo, probabilidad de éxito, valuación estimada, ROI y
           escenarios de retorno usando modelos de Machine Learning.

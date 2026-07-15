@@ -92,15 +92,15 @@ def predict_investment(data: InvestmentInput):
     if success_probability >= 75:
         risk_level = "Bajo"
         multiplier = 4
-        recommendation = "Invertir"
+        
     elif success_probability >= 55:
         risk_level = "Medio"
         multiplier = 2.5
-        recommendation = "Evaluar con más información"
+        
     else:
         risk_level = "Alto"
         multiplier = 1.2
-        recommendation = "No invertir por ahora"
+        
 
     valuation_input = pd.DataFrame([{
         "country": data.country,
@@ -126,6 +126,15 @@ def predict_investment(data: InvestmentInput):
     expected_return = expected_exit_value * (data.equity_percentage / 100)
     expected_profit = expected_return - data.investment_amount
     roi = (expected_profit / data.investment_amount) * 100
+
+    if success_probability >= 75 and roi > 20:
+        recommendation = "Invertir"
+    elif success_probability >= 55 and roi > 0:
+        recommendation = "Evaluar con más información"
+    elif success_probability >= 75 and roi <= 0:
+        recommendation = "Startup atractiva, pero inversión no rentable"
+    else:
+        recommendation = "No invertir por ahora"
 
     return {
     "prediction": int(prediction),
