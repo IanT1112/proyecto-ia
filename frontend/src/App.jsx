@@ -303,7 +303,7 @@ const getStrengths = () => {
     </button>
       <section className="hero">
         <span className="badge">IA para Venture Capital</span>
-        <h1>IA STARTUP</h1>
+        <h1>FundMind</h1>
         <p>
           Analiza riesgo, probabilidad de éxito, valuación estimada, ROI y
           escenarios de retorno usando modelos de Machine Learning.
@@ -311,14 +311,28 @@ const getStrengths = () => {
       </section>
 
       <section className="dashboard">
-        <aside className="input-panel">
+        <aside className="input-panel analysis-form-panel">
           <div className="panel-header">
-            <h2>Datos de análisis</h2>
-            <p>Completa los datos principales de inversión y startup.</p>
+            <div>
+              <span className="form-step">Análisis de inversión</span>
+              <h2>Construye tu escenario</h2>
+            </div>
+            <p>
+              Completa cada bloque de izquierda a derecha. Los datos financieros
+              y del equipo permiten generar una evaluación más precisa.
+            </p>
           </div>
 
           <form onSubmit={handlePredict} className="form">
             <div className="form-grid">
+              <div className="form-section-label">
+                <span>01</span>
+                <div>
+                  <h3>Propuesta de inversión</h3>
+                  <p>Define el capital, la participación y el horizonte.</p>
+                </div>
+              </div>
+
               <div className="field">
                 <label>Monto a invertir</label>
                 <input
@@ -357,6 +371,14 @@ const getStrengths = () => {
                   <option value="60">60 meses</option>
                   <option value="120">120 meses</option>
                 </select>
+              </div>
+
+              <div className="form-section-label">
+                <span>02</span>
+                <div>
+                  <h3>Equipo fundador</h3>
+                  <p>Experiencia y estructura del liderazgo.</p>
+                </div>
               </div>
 
               <div className="field">
@@ -422,6 +444,14 @@ const getStrengths = () => {
                   <option value="YES">Sí</option>
                   <option value="NO">No</option>
                 </select>
+              </div>
+
+              <div className="form-section-label">
+                <span>03</span>
+                <div>
+                  <h3>Perfil de la startup</h3>
+                  <p>Mercado, etapa y principales indicadores financieros.</p>
+                </div>
               </div>
 
               <div className="field">
@@ -538,6 +568,14 @@ const getStrengths = () => {
                   value={formData.estimated_revenue_usd}
                   onChange={handleChange}
                 />
+              </div>
+
+              <div className="form-section-label">
+                <span>04</span>
+                <div>
+                  <h3>Modelo y tecnología</h3>
+                  <p>Características operativas y señales de escalabilidad.</p>
+                </div>
               </div>
 
               <div className="field">
@@ -666,9 +704,15 @@ const getStrengths = () => {
               </div>
             </div>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Analizando..." : "Evaluar inversión"}
-            </button>
+            <div className="form-submit-row">
+              <div>
+                <strong>Todo listo para evaluar</strong>
+                <span>FundMind procesará los datos para construir el análisis.</span>
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? "Analizando..." : "Evaluar inversión"}
+              </button>
+            </div>
           </form>
         </aside>
 

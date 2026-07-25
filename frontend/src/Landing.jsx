@@ -4,7 +4,7 @@ function Landing({ onStart }) {
       <nav className="landing-nav">
         <div className="landing-brand">
           <span className="brand-icon">IA</span>
-          <span>IA Startup</span>
+          <span>FundMind</span>
         </div>
 
         <button className="landing-nav-button" onClick={onStart}>
@@ -19,14 +19,14 @@ function Landing({ onStart }) {
           <h1>Evalúa startups con inteligencia artificial</h1>
 
           <p>
-            IA Startup ayuda a estimar el potencial de éxito, nivel de riesgo,
+            FundMind ayuda a estimar el potencial de éxito, nivel de riesgo,
             valuación aproximada y retorno esperado de una inversión en startups
             usando modelos de Machine Learning.
           </p>
 
           <div className="landing-actions">
             <button className="landing-main-button" onClick={onStart}>
-              Probar IA Startup
+              Probar FundMind
             </button>
 
             <span>Modelo predictivo + análisis financiero</span>
@@ -146,7 +146,7 @@ function Landing({ onStart }) {
     <h2>Tecnologías utilizadas</h2>
 
     <p>
-      IA Startup integra modelos de Machine Learning, una API desarrollada
+      FundMind integra modelos de Machine Learning, una API desarrollada
       con FastAPI y una interfaz web construida en React para realizar
       análisis predictivos y financieros de startups.
     </p>
